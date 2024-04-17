@@ -2,6 +2,7 @@ import express from "express";
 import pg from "pg";
 import axios from "axios";
 import env from "dotenv";
+import cors from "cors";
 
 const app = express();
 const port = 5000;
@@ -13,11 +14,13 @@ const db = new pg.Client({
   database: process.env.PG_DATABASE,
   password: process.env.PG_PASSWORD,
   port: process.env.PG_PORT,
+  ssl: true,
 });
 
 db.connect();
 
 app.use(express.json());
+app.use(cors());
 
 app.get("/api", async (req, res) => {
   try {
