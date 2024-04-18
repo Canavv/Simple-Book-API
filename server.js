@@ -71,13 +71,13 @@ app.post("/update", async (req, res) => {
           url.preview_url,
         ]
       );
-      res.redirect("/");
+      res.send("POST request received");
     } else {
       await db.query(
         "INSERT INTO books(title, dates, review, isbn, score) VALUES ($1, $2, $3, $4, $5);",
         [book.title, date, book.review, book.isbn, book.score]
       );
-      res.redirect("/");
+      res.send("POST request received");
     }
   } catch (error) {
     console.log(error.message);
@@ -96,7 +96,7 @@ app.post("/update/:id", async (req, res) => {
       "UPDATE books SET title = $1, review = $2, isbn = $3, score = $4 WHERE id = $5",
       [book.title, book.review, book.isbn, book.score, id]
     );
-    res.redirect(`/review/${id}`);
+    res.send("POST request received");
   } catch (error) {
     console.log(error.message);
     res.status(500).json({
