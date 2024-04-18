@@ -111,7 +111,7 @@ app.post("/remove/:id", async (req, res) => {
 
   try {
     await db.query("DELETE FROM books WHERE id = $1", [id]);
-    res.redirect("/");
+    res.send("POST request received");
   } catch (error) {
     res.status(404).json({
       error: "Book not found.",
